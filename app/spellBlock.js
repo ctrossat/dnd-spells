@@ -30,7 +30,10 @@ export function SpellBlock ({
                     <p>{castingTime} </p>
                     <p>{range} </p>
                     <p>Durée: {concentration && 'Concentration '} {duration}</p>
-                    <p className="mt-2">{description} </p>
+                    <div 
+                        className="flex flex-col gap-y-2 mt-2"
+                        dangerouslySetInnerHTML={{__html: description}}
+                        />
                 </div>
             )}
           </div>

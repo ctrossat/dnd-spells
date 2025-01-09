@@ -24,9 +24,9 @@ export default async function Home() {
     return result === undefined ? false : true
   }
 
-  unparsedSpells.forEach(( raw) => {
+  await Promise.all(unparsedSpells.map(async (raw) => {
 
-    // const desc = await toHTML(parse(raw,'<!--Description-->', '<!--/Description-->')) 
+    const desc = await toHTML(parse(raw,'<!--Description-->', '<!--/Description-->'))
 
     let spell = {
       name: raw.slice(0,raw.indexOf('<!--/Name-->')),
@@ -36,16 +36,12 @@ export default async function Home() {
       castingTime: parse(raw,'<!--CastingTime-->', '<!--/CastingTime-->'),
       range: parse(raw,'<!--Range-->', '<!--/Range-->'),
       duration: parse(raw,'<!--Duration-->', '<!--/Duration-->'),
-      description: parse(raw,'<!--Description-->', '<!--/Description-->'),
+      description: desc.value ,
       concentration: parseBool(raw,'<!--Concentration-->', '<!--/Concentration-->'),
     }
 
     spells.push(spell)
-
-  })
-
-  console.log(spells);
-  
+  }));
 
   //removes useless stuff at top of md file
   spells.splice(0,2)
