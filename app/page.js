@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import {SpellBlock} from './spellBlock';
+import Search from './search';
 import toHTML from "@/lib/remark";
 
 export default async function Home() {
@@ -47,10 +48,8 @@ export default async function Home() {
   spells.splice(0,2)
 
   return (
-    <div className='flex flex-col gap-y-8 p-10'>
-      {spells.map((spell) => {
-        return (<SpellBlock {...spell}/>)
-      })}
-    </div>
+    <>
+    <Search spells={spells}/>
+    </>
   );
 }
