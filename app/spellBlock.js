@@ -15,7 +15,7 @@ export function SpellBlock({
 
     const [expend, setExpend] = useState(false)
 
-    if (name.toLowerCase().includes(search) || alias.toLowerCase().includes(search)){
+    if (name.toLowerCase().includes(search.toLowerCase()) || alias.toLowerCase().includes(search.toLowerCase())){
         return (
             <div className='flex flex-col px-4 py-2 rounded-md shadow-md z-20 hover:bg-gray-100 hover:shadow-lg'>
                 <div className='cursor-pointer' onClick={()=>setExpend(!expend)}>
