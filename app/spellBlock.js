@@ -10,6 +10,7 @@ export function SpellBlock({
     range, 
     duration,
     description,
+    composant,
     search
 }){
 
@@ -26,6 +27,7 @@ export function SpellBlock({
                     <div>
                         <p>Temps d'incantation : {castingTime} </p>
                         <p>Portée : {range} </p>
+                        <p>Composantes : {composant}</p>
                         <p>Durée: {duration}</p>
                         <div 
                             className="flex flex-col gap-y-2 mt-2"

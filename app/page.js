@@ -29,10 +29,16 @@ async function getAideDDSpells(){
       ? '</div><p class="resume">' 
       : '</div><div class="description'
 
-    //same as above but even sillier cuz they just have a space of difference
-    const descStart = raw.indexOf('<p class="resume">') != -1 
-      ? '<div class="description">' 
-      : '<div class="description ">'
+    //even sillier than above, we gotta account for both normal desc, desc of unavailble spell (just like above) AND desc witht special 'description petit' wich to my knowledge
+    //only account for animate object spell but hey you gotta do what you gotta do
+    let descStart;
+    if (raw.indexOf('div class="description petit"') == -1) {
+      descStart = raw.indexOf('<p class="resume">') != -1 
+        ? '<div class="description">' 
+        : '<div class="description ">'
+    } else {
+      descStart = '<div class="description petit">'
+    }
 
     let spell = {
       name: parse(raw,'<h1>', '</h1>'),
@@ -40,6 +46,7 @@ async function getAideDDSpells(){
       levelSchool: parse(raw,'<div class="ecole">', "</div><div><strong>Temps d'incantation"),
       castingTime: parse(raw,"<strong>Temps d'incantation</strong> : ", '</div><div><strong>Portée'),
       range: parse(raw,'<strong>Portée</strong> : ', '</div><div><strong>Composantes'),
+      composant: parse(raw,'<strong>Composantes</strong> : ', '</div><div><strong>Durée'),
       duration: parse(raw,'<div><strong>Durée</strong> : ', durationEnd),
       description: parse(raw,descStart, '</div></div>') ,
     }
