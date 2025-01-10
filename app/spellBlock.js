@@ -2,14 +2,12 @@
 
 import { useState } from "react"
 
-export function SpellBlock ({
+export function SpellBlock({
     name,
     alias, 
-    type, 
-    level, 
+    levelSchool, 
     castingTime, 
     range, 
-    concentration, 
     duration,
     description,
     search
@@ -17,20 +15,18 @@ export function SpellBlock ({
 
     const [expend, setExpend] = useState(false)
 
-    if (name.toLowerCase().includes(search) || alias != undefined && alias.toLowerCase().includes(search)){
+    if (name.toLowerCase().includes(search) || alias.toLowerCase().includes(search)){
         return (
-            <div className='flex flex-col px-4 py-2 rounded-md hover:bg-gray-200'>
+            <div className='flex flex-col px-4 py-2 rounded-md shadow-md z-20 hover:bg-gray-100 hover:shadow-lg'>
                 <div className='cursor-pointer' onClick={()=>setExpend(!expend)}>
-                    <h2 className='text-lg'>
-                    {name} {alias && '| '+ alias}
-                    </h2>
-                    <p>{type} de niveau {level}</p>
+                    <h2 className='text-lg'>{name} <span className="opacity-90 ml-2 text-[1.065rem]">{alias}</span></h2>
+                    <p className="capitalize">{levelSchool}</p>
                 </div>
                 {expend &&  (
                     <div>
-                        <p>{castingTime} </p>
-                        <p>{range} </p>
-                        <p>Durée: {concentration && 'Concentration '} {duration}</p>
+                        <p>Temps d'incantation : {castingTime} </p>
+                        <p>Portée : {range} </p>
+                        <p>Durée: {duration}</p>
                         <div 
                             className="flex flex-col gap-y-2 mt-2"
                             dangerouslySetInnerHTML={{__html: description}}
